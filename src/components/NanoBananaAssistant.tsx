@@ -31,10 +31,10 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
 
   useEffect(() => {
     const greetings = [
-      'Πάτα με για μαγικά αινίγματα! 🍌',
-      'Χρειάζεσαι βοήθεια στα μαθηματικά; ✨',
-      'Έχω ένα φοβερό μυστικό για σένα! 🚀',
-      'Μαθαίνουμε παρέα με την κ. Θεοδοσία! 💛',
+      'Πάτα με για αινίγματα! 🍌',
+      'Βοήθεια στα μαθηματικά; ✨',
+      'Έχω ένα μυστικό για σένα! 🚀',
+      'Μαθαίνουμε παρέα! 💛',
     ];
     let i = 0;
     const interval = setInterval(() => {
@@ -110,8 +110,8 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
   const triggerBananaParty = () => {
     sounds.playBanana();
     confetti({
-      particleCount: 120,
-      spread: 100,
+      particleCount: 100,
+      spread: 80,
       origin: { y: 0.8 },
       colors: ['#FDE047', '#FACC15', '#CA8A04', '#38BDF8', '#C084FC']
     });
@@ -119,14 +119,14 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
 
   return (
     <>
-      {/* Floating Mascot Button in Bottom-Right Corner */}
-      <div className="fixed bottom-5 right-5 z-40 flex flex-col items-end no-print">
+      {/* Floating Mascot Button in Bottom-Right Corner - Constrained on Mobile */}
+      <div className="fixed bottom-4 right-3 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end no-print pointer-events-none max-w-[calc(100vw-24px)]">
         
         {/* Playful Floating Speech Bubble */}
         {!isOpen && (
           <div 
             onClick={handleOpen}
-            className="mb-2 px-3.5 py-1.5 rounded-2xl bg-white/95 border-2 border-yellow-400 text-amber-900 text-xs font-black shadow-lg cursor-pointer transform hover:scale-105 transition-all flex items-center gap-1.5 animate-bounce-soft max-w-[200px]"
+            className="pointer-events-auto mb-2 px-3 py-1.5 rounded-2xl bg-white/95 border-2 border-yellow-400 text-amber-900 text-[11px] sm:text-xs font-black shadow-md cursor-pointer transform hover:scale-102 transition-all flex items-center gap-1.5 max-w-[170px] sm:max-w-[210px]"
           >
             <span>✨</span>
             <span className="truncate">{bubbleText}</span>
@@ -136,54 +136,54 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
         {/* Mascot Avatar Button */}
         <button
           onClick={isOpen ? handleClose : handleOpen}
-          className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-3xl bg-gradient-to-tr from-yellow-300 via-amber-400 to-yellow-200 border-4 border-yellow-400 shadow-xl flex items-center justify-center transform hover:scale-110 active:scale-95 transition-all group animate-pulse-glow"
+          className="pointer-events-auto relative w-14 h-14 sm:w-18 sm:h-18 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-yellow-300 via-amber-400 to-yellow-200 border-3 sm:border-4 border-yellow-400 shadow-lg flex items-center justify-center transform hover:scale-105 active:scale-95 transition-all group"
           title="Άνοιξε τον βοηθό Nano Banana!"
         >
-          <div className="text-3xl sm:text-4xl group-hover:rotate-12 transition-transform">
+          <div className="text-2xl sm:text-3xl group-hover:rotate-12 transition-transform">
             🍌
           </div>
-          <span className="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full border border-white">
+          <span className="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded-full border border-white">
             AI
           </span>
-          <span className="absolute -bottom-2 px-2 py-0.5 rounded-full bg-slate-900 text-yellow-300 text-[10px] font-black tracking-tight">
+          <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-0.5 rounded-full bg-slate-900 text-yellow-300 text-[9px] sm:text-[10px] font-black tracking-tight shadow-xs pointer-events-none">
             Nano Banana
           </span>
         </button>
       </div>
 
-      {/* Expanded Interactive Assistant Modal */}
+      {/* Expanded Interactive Assistant Modal - Zero Overflow Bottom Sheet on Mobile */}
       {isOpen && (
-        <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/40 backdrop-blur-xs flex items-end sm:items-center justify-center sm:justify-end p-2 sm:p-6 no-print">
-          <div className="bg-white rounded-3xl sm:max-w-md w-full shadow-2xl border-4 border-yellow-400 overflow-hidden flex flex-col h-[85vh] sm:h-[620px] animate-slide-up">
+        <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/50 backdrop-blur-xs flex items-end sm:items-center justify-center sm:justify-end p-0 sm:p-6 no-print max-w-[100vw]">
+          <div className="bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-md shadow-2xl border-t-4 sm:border-4 border-yellow-400 overflow-hidden flex flex-col h-[85vh] sm:h-[600px] max-h-[90vh] animate-slide-up">
             
             {/* Header */}
-            <div className="bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-300 p-4 border-b-2 border-yellow-500 flex items-center justify-between">
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-2xl bg-white flex items-center justify-center text-2xl shadow-inner border border-yellow-400">
+            <div className="bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-300 p-3.5 sm:p-4 border-b-2 border-yellow-500 flex items-center justify-between shrink-0">
+              <div className="flex items-center gap-2">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-white flex items-center justify-center text-xl sm:text-2xl shadow-inner border border-yellow-400 shrink-0">
                   🍌
                 </div>
-                <div>
-                  <h3 className="font-black text-slate-900 text-base leading-tight flex items-center gap-1">
+                <div className="min-w-0">
+                  <h3 className="font-black text-slate-900 text-sm sm:text-base leading-tight flex items-center gap-1 truncate">
                     <span>Google's Nano Banana</span>
-                    <Sparkles className="w-3.5 h-3.5 text-amber-700 animate-spin-slow" />
+                    <Sparkles className="w-3.5 h-3.5 text-amber-700 shrink-0" />
                   </h3>
-                  <p className="text-[11px] font-extrabold text-amber-900">
+                  <p className="text-[10px] sm:text-[11px] font-extrabold text-amber-900 truncate">
                     Έξυπνος Μαθητικός Βοηθός • Greek AI Buddy
                   </p>
                 </div>
               </div>
 
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 shrink-0">
                 <button
                   onClick={triggerBananaParty}
-                  className="p-2 rounded-xl bg-white/80 hover:bg-white text-amber-800 transition-all text-xs font-extrabold"
+                  className="p-1.5 sm:p-2 rounded-xl bg-white/80 hover:bg-white text-amber-800 transition-all text-xs font-extrabold"
                   title="Banana Party Confetti!"
                 >
                   🎉
                 </button>
                 <button
                   onClick={handleClose}
-                  className="p-2 rounded-xl bg-white/80 hover:bg-white text-slate-800 transition-all"
+                  className="p-1.5 sm:p-2 rounded-xl bg-white/80 hover:bg-white text-slate-800 transition-all"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -191,7 +191,7 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
             </div>
 
             {/* Feature Tabs */}
-            <div className="grid grid-cols-4 bg-yellow-100/60 p-1.5 gap-1 border-b border-yellow-300 text-xs font-black text-slate-700">
+            <div className="grid grid-cols-4 bg-yellow-100/60 p-1.5 gap-1 border-b border-yellow-300 text-xs font-black text-slate-700 shrink-0">
               <button
                 onClick={() => { sounds.playPop(); setActiveTab('chat'); }}
                 className={`py-1.5 rounded-xl transition-all ${activeTab === 'chat' ? 'bg-white shadow-xs text-amber-800' : 'hover:bg-white/50'}`}
@@ -223,8 +223,8 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
               
               {/* TAB 1: AI Chat */}
               {activeTab === 'chat' && (
-                <div className="flex flex-col h-full justify-between">
-                  <div className="space-y-3 overflow-y-auto pr-1">
+                <div className="flex flex-col h-full justify-between gap-2">
+                  <div className="space-y-3 overflow-y-auto pr-1 flex-1">
                     {chatMessages.map((msg, i) => (
                       <div
                         key={i}
@@ -259,23 +259,23 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
                   </div>
 
                   {/* Fast Question Chips */}
-                  <div className="pt-2">
-                    <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-none text-[11px] font-bold text-slate-600">
+                  <div className="pt-2 border-t border-slate-100">
+                    <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-none text-[10px] sm:text-[11px] font-bold text-slate-600">
                       <button
                         onClick={() => { setInputText('Πες μου ένα κόλπο για την προπαίδεια!'); }}
-                        className="px-2.5 py-1 rounded-full bg-yellow-100 hover:bg-yellow-200 text-amber-800 whitespace-nowrap border border-yellow-300"
+                        className="px-2.5 py-1 rounded-full bg-yellow-100 hover:bg-yellow-200 text-amber-800 whitespace-nowrap border border-yellow-300 shrink-0"
                       >
                         ⚡ Προπαίδεια
                       </button>
                       <button
                         onClick={() => { setInputText('Πώς γράφεται το παιδί;'); }}
-                        className="px-2.5 py-1 rounded-full bg-yellow-100 hover:bg-yellow-200 text-amber-800 whitespace-nowrap border border-yellow-300"
+                        className="px-2.5 py-1 rounded-full bg-yellow-100 hover:bg-yellow-200 text-amber-800 whitespace-nowrap border border-yellow-300 shrink-0"
                       >
                         ✏️ Ορθογραφία
                       </button>
                       <button
                         onClick={() => { setInputText('Πες μου ένα μυστικό για τον Ήλιο!'); }}
-                        className="px-2.5 py-1 rounded-full bg-yellow-100 hover:bg-yellow-200 text-amber-800 whitespace-nowrap border border-yellow-300"
+                        className="px-2.5 py-1 rounded-full bg-yellow-100 hover:bg-yellow-200 text-amber-800 whitespace-nowrap border border-yellow-300 shrink-0"
                       >
                         🚀 Διάστημα
                       </button>
@@ -292,7 +292,7 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
                       />
                       <button
                         type="submit"
-                        className="p-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold transition-all active:scale-95"
+                        className="p-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold transition-all active:scale-95 shrink-0"
                       >
                         <Send className="w-4 h-4" />
                       </button>
@@ -414,7 +414,7 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
             </div>
 
             {/* Bottom Footer Note */}
-            <div className="p-2.5 bg-slate-50 border-t border-slate-200 text-center text-[10px] font-bold text-slate-500 flex items-center justify-center gap-1">
+            <div className="p-2.5 bg-slate-50 border-t border-slate-200 text-center text-[10px] font-bold text-slate-500 flex items-center justify-center gap-1 shrink-0">
               <span>Google Gemini & Nano Banana Engine</span>
               <span>•</span>
               <span className="text-amber-600">Σχεδιασμένο για παιδιά Δημοτικού</span>

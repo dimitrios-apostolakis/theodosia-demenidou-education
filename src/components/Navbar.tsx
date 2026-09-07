@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Sparkles, Volume2, VolumeX, Award, Upload, BookOpen } from 'lucide-react';
+import { Sparkles, Volume2, VolumeX, Award, Upload } from 'lucide-react';
 import { sounds } from '../lib/soundEffects';
 
 interface NavbarProps {
@@ -28,45 +28,44 @@ export const Navbar: React.FC<NavbarProps> = ({
   };
 
   return (
-    <header className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b-2 border-yellow-200 shadow-sm transition-all">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b-2 border-yellow-200 shadow-xs transition-all w-full max-w-full overflow-hidden">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between gap-2">
         
         {/* Brand Logo & Name */}
         <a 
           href="#" 
           onClick={() => sounds.playPop()}
-          className="flex items-center gap-3 group focus:outline-none"
+          className="flex items-center gap-2 sm:gap-3 group shrink-0 focus:outline-none min-w-0"
         >
-          <div className="relative w-12 h-12 rounded-2xl bg-gradient-to-tr from-yellow-300 via-amber-400 to-yellow-200 flex items-center justify-center shadow-md transform group-hover:scale-105 group-hover:rotate-3 transition-transform border-2 border-yellow-400">
-            <span className="text-2xl animate-wiggle">🍌</span>
-            <span className="absolute -top-1 -right-1 text-xs">✨</span>
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-yellow-300 via-amber-400 to-yellow-200 flex items-center justify-center shadow-xs border-2 border-yellow-400 shrink-0 transform group-hover:scale-105 transition-transform">
+            <span className="text-xl sm:text-2xl animate-wiggle">🍌</span>
           </div>
-          <div>
-            <div className="flex items-center gap-1.5">
-              <span className="font-extrabold text-xl sm:text-2xl tracking-tight bg-gradient-to-r from-amber-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <div className="min-w-0">
+            <div className="flex items-center gap-1">
+              <span className="font-black text-base sm:text-xl lg:text-2xl tracking-tight bg-gradient-to-r from-amber-600 via-purple-600 to-blue-600 bg-clip-text text-transparent truncate">
                 Το Μαγικό Σχολείο
               </span>
-              <Sparkles className="w-4 h-4 text-amber-500 animate-spin-slow hidden sm:inline-block" />
+              <Sparkles className="w-3.5 h-3.5 text-amber-500 hidden sm:inline-block shrink-0" />
             </div>
-            <p className="text-xs font-semibold text-slate-500 flex items-center gap-1">
+            <p className="text-[10px] sm:text-xs font-bold text-slate-500 truncate flex items-center gap-1">
               <span>Θεοδοσία Δεμενίδου</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              <span className="text-emerald-600 font-medium">Δημοτικό Σχολείο</span>
+              <span className="w-1 h-1 rounded-full bg-emerald-400 hidden sm:inline-block"></span>
+              <span className="text-emerald-600 font-extrabold hidden sm:inline-block">Δημοτικό Σχολείο</span>
             </p>
           </div>
         </a>
 
-        {/* Action Controls */}
-        <div className="flex items-center gap-2 sm:gap-4">
+        {/* Action Controls - Sleek, Compact & Zero-Wrap on Mobile */}
+        <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
           
           {/* Audio Effects Toggle */}
           <button
             onClick={toggleMute}
             title={isMuted ? "Ενεργοποίηση Ήχων" : "Σίγαση Ήχων"}
-            className="p-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-700 border border-yellow-300 transition-transform active:scale-95 shadow-sm flex items-center gap-1"
+            className="w-9 h-9 sm:w-auto sm:px-3 sm:py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-700 border border-yellow-300 transition-transform active:scale-95 shadow-2xs flex items-center justify-center gap-1.5"
           >
-            {isMuted ? <VolumeX className="w-5 h-5 text-slate-400" /> : <Volume2 className="w-5 h-5 text-amber-600 animate-pulse-soft" />}
-            <span className="text-xs font-bold hidden md:inline">
+            {isMuted ? <VolumeX className="w-4 h-4 text-slate-400" /> : <Volume2 className="w-4 h-4 text-amber-600" />}
+            <span className="text-xs font-extrabold hidden md:inline">
               {isMuted ? "Ήχοι Off" : "Ήχοι On"}
             </span>
           </button>
@@ -77,17 +76,13 @@ export const Navbar: React.FC<NavbarProps> = ({
               sounds.playChime();
               onOpenStickers();
             }}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 transition-all active:scale-95 shadow-sm group"
+            title="Το Άλμπουμ με τα Αυτοκόλλητα"
+            className="h-9 px-2.5 sm:px-3 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200 transition-all active:scale-95 shadow-2xs flex items-center gap-1 sm:gap-1.5 group"
           >
-            <Award className="w-5 h-5 text-purple-600 group-hover:rotate-12 transition-transform" />
-            <div className="text-left">
-              <div className="text-[10px] uppercase tracking-wider font-extrabold text-purple-500 hidden sm:block">
-                Αυτοκολλητα
-              </div>
-              <div className="text-xs font-extrabold flex items-center gap-1">
-                <span>{unlockedStickersCount}/{totalStickersCount}</span>
-                <span className="text-amber-500">⭐</span>
-              </div>
+            <Award className="w-4 h-4 text-purple-600 group-hover:rotate-12 transition-transform shrink-0" />
+            <div className="flex items-center gap-1 text-xs font-black">
+              <span>{unlockedStickersCount}/{totalStickersCount}</span>
+              <span className="text-amber-500 text-[10px] sm:text-xs">⭐</span>
             </div>
           </button>
 
@@ -97,11 +92,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               sounds.playChime();
               onOpenUpload();
             }}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-slate-900 font-extrabold text-sm shadow-md hover:shadow-lg transition-all active:scale-95 border border-yellow-300"
+            title="Πύλη Εκπαιδευτικού: Θεοδοσία Δεμενίδου"
+            className="h-9 px-2.5 sm:px-4 rounded-xl bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-500 hover:to-yellow-600 text-slate-900 font-black text-xs sm:text-sm shadow-xs hover:shadow-md transition-all active:scale-95 border border-yellow-300 flex items-center gap-1.5 shrink-0"
           >
-            <Upload className="w-4 h-4 text-slate-900" />
+            <Upload className="w-3.5 h-3.5 text-slate-900 shrink-0" />
             <span className="hidden sm:inline">Ανάρτηση Υλικού</span>
-            <span className="sm:hidden">Ανάρτηση</span>
+            <span className="sm:hidden font-extrabold">+ Υλικό</span>
           </button>
 
         </div>

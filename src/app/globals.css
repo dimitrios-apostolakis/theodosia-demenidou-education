@@ -8,11 +8,18 @@
   --background-end-rgb: 240, 249, 255;
 }
 
+html, body {
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  width: 100% !important;
+  position: relative;
+  touch-action: pan-y pinch-zoom;
+}
+
 body {
   color: rgb(var(--foreground-rgb));
   background: radial-gradient(circle at 10% 20%, rgba(254, 240, 138, 0.25) 0%, rgba(224, 242, 254, 0.4) 90%), #fafafa;
   min-height: 100vh;
-  overflow-x: hidden;
 }
 
 /* Playful dot pattern background */
@@ -20,11 +27,13 @@ body {
   background-image: radial-gradient(#e0e7ff 1.5px, transparent 1.5px), radial-gradient(#fef08a 1.5px, transparent 1.5px);
   background-size: 32px 32px;
   background-position: 0 0, 16px 16px;
+  overflow-x: hidden;
+  max-width: 100%;
 }
 
 /* Custom fun scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
   background: #fefce8;
@@ -32,7 +41,7 @@ body {
 ::-webkit-scrollbar-thumb {
   background: #facc15;
   border-radius: 9999px;
-  border: 3px solid #fefce8;
+  border: 2px solid #fefce8;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #eab308;

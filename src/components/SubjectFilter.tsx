@@ -33,8 +33,8 @@ export const SubjectFilter: React.FC<SubjectFilterProps> = ({
   subjectCounts,
 }) => {
   return (
-    <div className="py-2 mb-6">
-      <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+    <div className="py-2 mb-6 w-full max-w-full overflow-hidden">
+      <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto pb-2 scrollbar-none w-full max-w-full">
         {subjectsList.map((sub) => {
           const isSelected = selectedSubject === sub.id;
           const count = sub.id === 'all'
@@ -48,15 +48,15 @@ export const SubjectFilter: React.FC<SubjectFilterProps> = ({
                 sounds.playPop();
                 onSelectSubject(sub.id);
               }}
-              className={`flex items-center gap-1.5 px-3.5 py-2 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition-all border ${
+              className={`flex items-center gap-1 sm:gap-1.5 px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-xl text-xs sm:text-sm font-extrabold whitespace-nowrap transition-all border shrink-0 ${
                 isSelected
-                  ? `${sub.activeClass} shadow-md scale-105`
+                  ? `${sub.activeClass} shadow-xs scale-105`
                   : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200 shadow-2xs hover:scale-[1.02]'
               }`}
             >
               <span>{sub.icon}</span>
               <span>{sub.label}</span>
-              <span className={`ml-1 text-[11px] px-1.5 py-0.2 rounded-md ${
+              <span className={`ml-0.5 sm:ml-1 text-[10px] sm:text-[11px] px-1.5 py-0.2 rounded-md ${
                 isSelected ? 'bg-white/20 text-white' : 'bg-slate-100 text-slate-500'
               }`}>
                 {count}

@@ -163,7 +163,7 @@ export default function HomePage() {
   const unlockedStickersCount = stickers.filter((s) => s.unlocked).length;
 
   return (
-    <div className="min-h-screen flex flex-col magic-pattern text-slate-800">
+    <div className="min-h-screen flex flex-col magic-pattern text-slate-800 w-full max-w-full overflow-x-hidden relative">
       {/* Navbar */}
       <Navbar
         onOpenUpload={() => setIsUploadOpen(true)}
@@ -181,7 +181,7 @@ export default function HomePage() {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full -mt-4">
+      <main className="flex-1 max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full max-w-full overflow-x-hidden -mt-4">
         
         {/* Grade Selector Islands */}
         <GradeSelector
@@ -203,11 +203,11 @@ export default function HomePage() {
         {/* Header Ribbon for Active Filter State */}
         <div className="flex items-center justify-between mb-6 pt-2">
           <div className="flex items-center gap-2">
-            <Layers className="w-5 h-5 text-amber-600" />
-            <h2 className="text-xl sm:text-2xl font-black text-slate-900">
+            <Layers className="w-4 h-4 sm:w-5 sm:h-5 text-amber-600 shrink-0" />
+            <h2 className="text-base sm:text-2xl font-black text-slate-900 truncate">
               {selectedGrade === 'all' ? 'Όλα τα Φύλλα Εργασίας' : `Φύλλα Εργασίας - ${selectedGrade}' Δημοτικού`}
             </h2>
-            <span className="text-xs font-black px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-yellow-300">
+            <span className="text-[10px] sm:text-xs font-black px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full bg-amber-100 text-amber-800 border border-yellow-300 shrink-0">
               {filteredWorksheets.length} διαθέσιμα
             </span>
           </div>
@@ -220,9 +220,9 @@ export default function HomePage() {
                 setSelectedSubject('all');
                 setSearchQuery('');
               }}
-              className="text-xs font-black text-rose-600 hover:text-rose-700 underline"
+              className="text-xs font-black text-rose-600 hover:text-rose-700 underline shrink-0 ml-2"
             >
-              Καθαρισμός όλων των φίλτρων
+              Καθαρισμός
             </button>
           )}
         </div>
@@ -249,7 +249,7 @@ export default function HomePage() {
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {filteredWorksheets.map((worksheet) => (
               <WorksheetCard
                 key={worksheet.id}
