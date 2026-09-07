@@ -3,7 +3,6 @@
 import React from 'react';
 import { Search, Sparkles, BookOpen } from 'lucide-react';
 import { sounds } from '../lib/soundEffects';
-import { HeroLogoShowcase } from './HeroLogoShowcase';
 
 interface HeroSectionProps {
   searchQuery: string;
@@ -59,8 +58,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           και εκπαιδευτικό υλικό για όλες τις τάξεις από την <strong>Α' μέχρι τη Στ' Δημοτικού</strong>.
         </p>
 
-        {/* Hero Logo & Brand Variants Showcase */}
-        <HeroLogoShowcase />
+        {/* School Logo */}
+        <div className="flex justify-center mb-4 sm:mb-5">
+          <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl bg-white shadow-md border-2 border-indigo-200 p-2 flex items-center justify-center transform hover:scale-105 transition-transform">
+            <img 
+              src="/logo-primary.svg" 
+              alt="Λογότυπο: Μαθαίνουμε Μαζί" 
+              className="w-full h-full object-contain"
+            />
+          </div>
+        </div>
 
         {/* Search Bar */}
         <div className="max-w-2xl mx-auto relative mb-4 sm:mb-6">
@@ -119,11 +126,15 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <span className="text-base sm:text-xl">🎒</span> 6 Τάξεις
           </div>
           <div className="p-2.5 sm:p-3 bg-white/90 backdrop-blur-xs rounded-2xl border border-indigo-200 shadow-2xs flex items-center justify-center gap-1.5 text-slate-700 font-bold text-xs sm:text-sm">
-            <span className="text-base sm:text-xl">🦉</span> Βοηθός Μελέτης AI
+            <span className="text-base sm:text-xl">🦉</span> Βοηθός Μελέτης
           </div>
-          <div className="p-2.5 sm:p-3 bg-white/90 backdrop-blur-xs rounded-2xl border border-purple-200 shadow-2xs flex items-center justify-center gap-1.5 text-slate-700 font-bold text-xs sm:text-sm">
-            <span className="text-base sm:text-xl">⭐</span> Αυτοκόλλητα
-          </div>
+          <a
+            href="#games-section"
+            onClick={() => sounds.playPop()}
+            className="p-2.5 sm:p-3 bg-gradient-to-r from-amber-50 to-orange-50 hover:from-amber-100 hover:to-orange-100 rounded-2xl border border-amber-300 shadow-2xs flex items-center justify-center gap-1.5 text-amber-900 font-black text-xs sm:text-sm transition-all"
+          >
+            <span className="text-base sm:text-xl">🎮</span> Παιχνίδια & Αρχαία
+          </a>
         </div>
 
       </div>

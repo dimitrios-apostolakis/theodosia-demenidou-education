@@ -12,7 +12,7 @@ import { WorksheetModal } from '../components/WorksheetModal';
 import { TeacherUploadModal } from '../components/TeacherUploadModal';
 import { StickerAlbumModal } from '../components/StickerAlbumModal';
 import { StudyAssistant } from '../components/StudyAssistant';
-import { DailyQuizBanner } from '../components/DailyQuizBanner';
+import { KidsEducationalGames } from '../components/KidsEducationalGames';
 import { Footer } from '../components/Footer';
 import { printWorksheetDirect } from '../lib/pdfGenerator';
 import { sounds } from '../lib/soundEffects';
@@ -190,8 +190,8 @@ export default function HomePage() {
           gradeCounts={gradeCounts}
         />
 
-        {/* Daily Mini-Quiz Banner */}
-        <DailyQuizBanner />
+        {/* Interactive Kids Games & Ancient Greek Zone */}
+        <KidsEducationalGames onUnlockSticker={unlockSticker} />
 
         {/* Subject Filter Tabs */}
         <SubjectFilter

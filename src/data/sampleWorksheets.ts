@@ -563,6 +563,8 @@ export const initialStickers = [
   { id: 'stk-6', name: 'Μικρός Αϊνστάιν', icon: '🔬', description: 'Ερεύνησες τα πειράματα και το φως', unlocked: false },
   { id: 'stk-7', name: 'Σούπερ Εκτυπωτής', icon: '🖨️', description: 'Εκτύπωσες ή κατέβασες ένα φύλλο εργασίας', unlocked: false },
   { id: 'stk-8', name: 'Χρυσό Μετάλλιο κ. Θεοδοσίας', icon: '🏆', description: 'Συγκέντρωσες 5 επιτεύγματα!', unlocked: false },
+  { id: 'stk-9', name: 'Μύστης Αρχαίων Ριζών', icon: '🏛️', description: 'Έλυσες προκλήσεις αρχαίων ελληνικών & ετυμολογίας', unlocked: false },
+  { id: 'stk-10', name: 'Πρωταθλητής Παιχνιδιών', icon: '🎮', description: 'Σημείωσες σερί σωστών απαντήσεων στα παιχνίδια', unlocked: false },
 ];
 
 export const studyRiddles = [

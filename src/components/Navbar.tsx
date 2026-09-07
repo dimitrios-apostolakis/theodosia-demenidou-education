@@ -77,6 +77,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             </span>
           </button>
 
+          {/* Kids Games Link */}
+          <a
+            href="#games-section"
+            onClick={() => sounds.playPop()}
+            className="px-3 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 transition-all active:scale-95 shadow-2xs flex items-center gap-1.5"
+          >
+            <span className="text-sm">🎮</span>
+            <span className="text-xs font-black">Παιχνίδια & Αρχαία</span>
+          </a>
+
           {/* Sticker Album Counter */}
           <button
             onClick={() => {
@@ -148,6 +158,24 @@ export const Navbar: React.FC<NavbarProps> = ({
             <Upload className="w-4 h-4" />
             <span>Πύλη Εκπαιδευτικού (+ Ανάρτηση Υλικού)</span>
           </button>
+
+          {/* Kids Games Action Button */}
+          <a
+            href="#games-section"
+            onClick={() => {
+              sounds.playPop();
+              setIsMobileMenuOpen(false);
+            }}
+            className="w-full py-2.5 px-4 rounded-2xl bg-amber-50 border border-amber-200 text-amber-950 font-extrabold text-sm flex items-center justify-between active:scale-98"
+          >
+            <div className="flex items-center gap-2">
+              <span className="text-base">🎮</span>
+              <span>Παιχνίδια & Αρχαία Ελληνικά</span>
+            </div>
+            <span className="bg-amber-200/80 px-2 py-0.5 rounded-full text-xs font-black text-amber-900">
+              Νέο!
+            </span>
+          </a>
 
           {/* Stickers Album Action Button */}
           <button
