@@ -44,8 +44,8 @@ export const Navbar: React.FC<NavbarProps> = ({
           onClick={() => sounds.playPop()}
           className="flex items-center gap-2.5 sm:gap-3 group shrink-0 focus:outline-none min-w-0"
         >
-          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-gradient-to-tr from-indigo-600 via-blue-600 to-indigo-500 flex items-center justify-center shadow-xs border-2 border-indigo-300 shrink-0 transform group-hover:scale-105 transition-transform">
-            <span className="text-xl sm:text-2xl">📚</span>
+          <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl overflow-hidden shadow-xs border-2 border-indigo-200 shrink-0 transform group-hover:scale-105 transition-transform bg-indigo-900 flex items-center justify-center p-1">
+            <img src="/icon.svg" alt="Μαθαίνουμε Μαζί Logo" className="w-full h-full object-contain" />
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-1">

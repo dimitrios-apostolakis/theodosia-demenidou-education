@@ -1,8 +1,9 @@
 'use client';
 
 import React from 'react';
-import { Search, Sparkles, BookOpen, Star, Award, Heart, Compass } from 'lucide-react';
+import { Search, Sparkles, BookOpen } from 'lucide-react';
 import { sounds } from '../lib/soundEffects';
+import { HeroLogoShowcase } from './HeroLogoShowcase';
 
 interface HeroSectionProps {
   searchQuery: string;
@@ -44,8 +45,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <span className="hidden sm:inline">✨</span>
         </div>
 
-        {/* Main Catchy Title */}
-        <h1 className="text-2xl sm:text-5xl lg:text-6xl font-black text-slate-800 tracking-tight leading-snug sm:leading-none mb-4 sm:mb-6">
+        {/* Main Title */}
+        <h1 className="text-2xl sm:text-5xl lg:text-6xl font-black text-slate-800 tracking-tight leading-snug sm:leading-none mb-3 sm:mb-4">
           Ένας Χώρος Γεμάτος <br className="hidden sm:block" />
           <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-teal-600 bg-clip-text text-transparent">
             Γνώση & Δημιουργία
@@ -58,7 +59,10 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           και εκπαιδευτικό υλικό για όλες τις τάξεις από την <strong>Α' μέχρι τη Στ' Δημοτικού</strong>.
         </p>
 
-        {/* Kid-Friendly Search Bar */}
+        {/* Hero Logo & Brand Variants Showcase */}
+        <HeroLogoShowcase />
+
+        {/* Search Bar */}
         <div className="max-w-2xl mx-auto relative mb-4 sm:mb-6">
           <div className="relative flex items-center shadow-md rounded-3xl bg-white border-2 sm:border-3 border-indigo-200 focus-within:border-indigo-400 focus-within:ring-4 focus-within:ring-indigo-100 transition-all p-1.5 sm:p-2">
             <div className="pl-2 sm:pl-3 pr-1 sm:pr-2 text-indigo-500">

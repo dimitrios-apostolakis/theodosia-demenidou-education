@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 200" width="100%" height="100%">
+  <defs>
+    <linearGradient id="hSky" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="50%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="hGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="50%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Left Emblem Container (r=75 centered at x=110, y=100) -->
+  <g transform="translate(110, 100) scale(0.35) translate(-256, -256)">
+    <circle cx="256" cy="256" r="230" fill="url(#hSky)" stroke="url(#hGold)" stroke-width="14"/>
+    <!-- Owl -->
+    <ellipse cx="256" cy="245" rx="70" ry="75" fill="#312E81"/>
+    <ellipse cx="256" cy="260" rx="46" ry="50" fill="#FEF3C7"/>
+    <!-- Eyes -->
+    <circle cx="220" cy="180" r="34" fill="#FFFFFF" stroke="url(#hGold)" stroke-width="6"/>
+    <circle cx="292" cy="180" r="34" fill="#FFFFFF" stroke="url(#hGold)" stroke-width="6"/>
+    <circle cx="224" cy="180" r="18" fill="#1E1B4B"/>
+    <circle cx="288" cy="180" r="18" fill="#1E1B4B"/>
+    <circle cx="218" cy="174" r="6" fill="#FFFFFF"/>
+    <circle cx="282" cy="174" r="6" fill="#FFFFFF"/>
+    <polygon points="256,192 246,212 266,212" fill="url(#hGold)"/>
+    <!-- Cap -->
+    <polygon points="256,105 325,128 256,150 187,128" fill="#1E1B4B" stroke="url(#hGold)" stroke-width="4"/>
+    <circle cx="256" cy="128" r="6" fill="url(#hGold)"/>
+    <!-- Book -->
+    <path d="M256,360 Q190,335 135,345 L145,305 Q195,300 256,315 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3"/>
+    <path d="M256,360 Q322,335 377,345 L367,305 Q317,300 256,315 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3"/>
+  </g>
+
+  <!-- Right Typography Block -->
+  <g transform="translate(210, 0)">
+    <!-- Pill Badge -->
+    <rect x="0" y="32" width="220" height="26" rx="13" fill="#EEF2FF" stroke="#C7D2FE" stroke-width="1.5"/>
+    <text x="15" y="49" font-family="'Segoe UI', system-ui, sans-serif" font-size="11" font-weight="800" fill="#4338CA" letter-spacing="1">
+      ★ ΠΡΩΤΟΒΑΘΜΙΑ ΕΚΠΑΙΔΕΥΣΗ
+    </text>
+
+    <!-- Main Title -->
+    <text x="0" y="105" font-family="'Fredoka', 'Segoe UI', system-ui, sans-serif" font-size="46" font-weight="900" fill="#1E1B4B" letter-spacing="-0.5">
+      Μαθαίνουμε Μαζί
+    </text>
+
+    <!-- Subtitle / Educator Tag -->
+    <text x="2" y="142" font-family="'Segoe UI', system-ui, sans-serif" font-size="18" font-weight="800" fill="#4F46E5">
+      Θεοδοσία Δεμενίδου
+      <tspan font-weight="500" fill="#64748B"> • Εκπαιδευτικός Δημοτικού</tspan>
+    </text>
+
+    <!-- Small Features Strip -->
+    <text x="2" y="172" font-family="'Segoe UI', system-ui, sans-serif" font-size="13" font-weight="600" fill="#94A3B8">
+      Φύλλα Εργασίας • PDF • Ασκήσεις &amp; Δραστηριότητες (Α' - Στ' Δημοτικού)
+    </text>
+  </g>
+</svg>

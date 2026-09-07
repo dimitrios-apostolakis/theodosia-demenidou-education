@@ -9,6 +9,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://theodosia-demenidou-education.vercel.app'),
   title: "Μαθαίνουμε Μαζί | Θεοδοσία Δεμενίδου - Δημοτικό Σχολείο",
   description: "Εκπαιδευτική πλατφόρμα πρωτοβάθμιας εκπαίδευσης από την εκπαιδευτικό Θεοδοσία Δεμενίδου. Δωρεάν φύλλα εργασίας, PDF, ασκήσεις και έξυπνος βοηθός μελέτης για παιδιά Δημοτικού.",
   keywords: [
@@ -24,11 +25,30 @@ export const metadata: Metadata = {
     "Βοηθός Μελέτης",
   ],
   authors: [{ name: "Θεοδοσία Δεμενίδου" }],
+  icons: {
+    icon: '/icon.svg',
+    shortcut: '/icon.svg',
+    apple: '/icon.svg',
+  },
   openGraph: {
     title: "Μαθαίνουμε Μαζί - Θεοδοσία Δεμενίδου",
     description: "Δωρεάν φύλλα εργασίας, PDF και εκπαιδευτικό υλικό για το Δημοτικό Σχολείο.",
     locale: "el_GR",
     type: "website",
+    images: [
+      {
+        url: '/og-image.svg',
+        width: 1200,
+        height: 630,
+        alt: 'Μαθαίνουμε Μαζί - Θεοδοσία Δεμενίδου | Δημοτικό Σχολείο',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "Μαθαίνουμε Μαζί - Θεοδοσία Δεμενίδου",
+    description: "Δωρεάν φύλλα εργασίας, PDF και εκπαιδευτικό υλικό για το Δημοτικό Σχολείο.",
+    images: ['/og-image.svg'],
   },
 };
 
@@ -40,7 +60,7 @@ export default function RootLayout({
   return (
     <html lang="el" className="overflow-x-hidden max-w-full">
       <head>
-        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📚</text></svg>" />
+        <link rel="icon" type="image/svg+xml" href="/icon.svg" />
       </head>
       <body className="antialiased selection:bg-indigo-200 selection:text-slate-900 overflow-x-hidden max-w-full w-full">
         {children}

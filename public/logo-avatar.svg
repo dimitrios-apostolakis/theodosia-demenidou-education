@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="100%" height="100%">
+  <defs>
+    <linearGradient id="icGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4F46E5"/>
+      <stop offset="100%" stop-color="#2563EB"/>
+    </linearGradient>
+    <linearGradient id="icGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE047"/>
+      <stop offset="100%" stop-color="#F59E0B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Rounded App Icon Background -->
+  <rect x="6" y="6" width="180" height="180" rx="44" fill="url(#icGrad)" stroke="url(#icGold)" stroke-width="6"/>
+
+  <!-- Mini Owl & Book Centered -->
+  <g transform="translate(96, 96) scale(0.33) translate(-256, -240)">
+    <!-- Owl Body -->
+    <ellipse cx="256" cy="240" rx="80" ry="85" fill="#312E81"/>
+    <ellipse cx="256" cy="260" rx="54" ry="58" fill="#FEF3C7"/>
+    <!-- Big Eyes -->
+    <circle cx="215" cy="175" r="38" fill="#FFFFFF" stroke="url(#icGold)" stroke-width="7"/>
+    <circle cx="297" cy="175" r="38" fill="#FFFFFF" stroke="url(#icGold)" stroke-width="7"/>
+    <circle cx="220" cy="175" r="20" fill="#1E1B4B"/>
+    <circle cx="292" cy="175" r="20" fill="#1E1B4B"/>
+    <circle cx="212" cy="167" r="7" fill="#FFFFFF"/>
+    <circle cx="284" cy="167" r="7" fill="#FFFFFF"/>
+    <!-- Beak -->
+    <polygon points="256,190 244,215 268,215" fill="url(#icGold)"/>
+    <!-- Cap -->
+    <polygon points="256,90 345,120 256,150 167,120" fill="#1E1B4B" stroke="url(#icGold)" stroke-width="5"/>
+    <circle cx="256" cy="120" r="7" fill="url(#icGold)"/>
+    <!-- Open Book -->
+    <path d="M256,365 Q180,330 115,345 L125,300 Q185,295 256,315 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3"/>
+    <path d="M256,365 Q332,330 397,345 L387,300 Q327,295 256,315 Z" fill="#FFFFFF" stroke="#CBD5E1" stroke-width="3"/>
+    <path d="M252,315 L252,390 L256,385 L260,390 L260,315 Z" fill="url(#icGold)"/>
+  </g>
+</svg>

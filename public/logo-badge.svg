@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <!-- Text Paths for Circular Top and Bottom Arc -->
+    <path id="topArc" d="M 60,200 A 140,140 0 0,1 340,200" fill="none"/>
+    <path id="bottomArc" d="M 340,200 A 140,140 0 0,1 60,200" fill="none"/>
+    
+    <linearGradient id="stampGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#312E81"/>
+      <stop offset="100%" stop-color="#4338CA"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Double Circle Border -->
+  <circle cx="200" cy="200" r="190" fill="#FFFFFF" stroke="#312E81" stroke-width="8"/>
+  <circle cx="200" cy="200" r="176" fill="none" stroke="#F59E0B" stroke-width="4" stroke-dasharray="6 4"/>
+  <circle cx="200" cy="200" r="130" fill="#F8FAFC" stroke="#312E81" stroke-width="4"/>
+
+  <!-- Curved Circular Text -->
+  <text font-family="'Segoe UI', system-ui, sans-serif" font-size="17" font-weight="900" fill="#312E81" letter-spacing="3">
+    <textPath href="#topArc" startOffset="50%" text-anchor="middle">
+      ★ ΘΕΟΔΟΣΙΑ ΔΕΜΕΝΙΔΟΥ ★
+    </textPath>
+  </text>
+  <text font-family="'Segoe UI', system-ui, sans-serif" font-size="14" font-weight="900" fill="#4338CA" letter-spacing="2.5">
+    <textPath href="#bottomArc" startOffset="50%" text-anchor="middle">
+      ΕΚΠΑΙΔΕΥΤΙΚΟ ΥΛΙΚΟ ΔΗΜΟΤΙΚΟΥ
+    </textPath>
+  </text>
+
+  <!-- Center Artwork (Owl & Quill) -->
+  <g transform="translate(200, 200) scale(0.48) translate(-256, -256)">
+    <!-- Owl Silhouette & Spectacles -->
+    <ellipse cx="256" cy="250" rx="90" ry="95" fill="#312E81"/>
+    <ellipse cx="256" cy="270" rx="60" ry="65" fill="#FFFFFF"/>
+    
+    <!-- Eyes -->
+    <circle cx="215" cy="190" r="40" fill="#FFFFFF" stroke="#F59E0B" stroke-width="7"/>
+    <circle cx="297" cy="190" r="40" fill="#FFFFFF" stroke="#F59E0B" stroke-width="7"/>
+    <circle cx="220" cy="190" r="20" fill="#1E1B4B"/>
+    <circle cx="292" cy="190" r="20" fill="#1E1B4B"/>
+    <circle cx="212" cy="182" r="7" fill="#FFFFFF"/>
+    <circle cx="284" cy="182" r="7" fill="#FFFFFF"/>
+    
+    <!-- Beak -->
+    <polygon points="256,205 242,230 270,230" fill="#F59E0B"/>
+    
+    <!-- Mortarboard Cap -->
+    <polygon points="256,90 345,120 256,150 167,120" fill="#1E1B4B" stroke="#F59E0B" stroke-width="5"/>
+    <circle cx="256" cy="120" r="7" fill="#F59E0B"/>
+    <path d="M256,120 Q310,140 320,180" fill="none" stroke="#F59E0B" stroke-width="5" stroke-linecap="round"/>
+    <circle cx="320" cy="182" r="7" fill="#F59E0B"/>
+
+    <!-- Open Book -->
+    <path d="M256,380 Q170,340 100,355 L115,305 Q180,300 256,325 Z" fill="#312E81"/>
+    <path d="M256,380 Q342,340 412,355 L397,305 Q332,300 256,325 Z" fill="#312E81"/>
+  </g>
+
+  <!-- Stars on left and right -->
+  <g fill="#F59E0B">
+    <circle cx="48" cy="200" r="5"/>
+    <circle cx="352" cy="200" r="5"/>
+  </g>
+</svg>
