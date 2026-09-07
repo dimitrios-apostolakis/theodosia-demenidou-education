@@ -35,7 +35,7 @@ export const WorksheetModal: React.FC<WorksheetModalProps> = ({
   };
 
   const toggleHint = (qId: string) => {
-    sounds.playBanana();
+    sounds.playChime();
     setShowHints((prev) => ({ ...prev, [qId]: !prev[qId] }));
   };
 
@@ -141,10 +141,10 @@ export const WorksheetModal: React.FC<WorksheetModalProps> = ({
                       <button
                         onClick={() => toggleHint(q.id)}
                         className="flex items-center gap-1 text-xs font-extrabold text-amber-700 bg-amber-100 hover:bg-yellow-200 px-2.5 py-1 rounded-xl transition-all"
-                        title="Ζήτα βοήθεια από τη Νανο-Μπανάνα!"
+                        title="Ζήτα βοήθεια από τον Σοφούλη!"
                       >
                         <Lightbulb className="w-3.5 h-3.5 text-amber-600" />
-                        <span>Βοήθεια 🍌</span>
+                        <span>Βοήθεια 🦉</span>
                       </button>
                     )}
                   </div>
@@ -152,7 +152,7 @@ export const WorksheetModal: React.FC<WorksheetModalProps> = ({
                   {/* Hint Accordion */}
                   {showHints[q.id] && q.hint && (
                     <div className="mb-4 p-3 rounded-xl bg-yellow-100/80 border border-yellow-300 text-amber-900 text-xs font-semibold flex items-center gap-2 animate-bounce-soft">
-                      <span>🍌 <strong>Συμβουλή Nano Banana:</strong></span>
+                      <span>🦉 <strong>Συμβουλή Σοφούλη:</strong></span>
                       <span>{q.hint}</span>
                     </div>
                   )}
@@ -194,7 +194,7 @@ export const WorksheetModal: React.FC<WorksheetModalProps> = ({
           {/* Fun Fact Banner */}
           {worksheet.content.funFact && (
             <div className="p-4 rounded-2xl bg-gradient-to-r from-amber-100 to-yellow-100 border border-amber-300 flex items-center gap-3">
-              <span className="text-3xl animate-wiggle">🍌</span>
+              <span className="text-3xl animate-wiggle">🦉</span>
               <div>
                 <div className="text-xs font-black text-amber-800 uppercase tracking-wider">
                   Το ήξερες αυτό;

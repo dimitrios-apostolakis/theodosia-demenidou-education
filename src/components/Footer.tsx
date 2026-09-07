@@ -66,7 +66,7 @@ export const Footer: React.FC = () => {
               </p>
               <p className="flex items-start gap-1.5">
                 <Sparkles className="w-4 h-4 text-purple-600 shrink-0 mt-0.5" />
-                <span>Χρησιμοποιήστε τον <strong>Nano Banana AI</strong> για άμεση επεξήγηση και μαθηματικά τρικ στα παιδιά.</span>
+                <span>Χρησιμοποιήστε τον <strong>Έξυπνο Βοηθό Μελέτης AI</strong> για άμεση επεξήγηση και μαθηματικά τρικ στα παιδιά.</span>
               </p>
             </div>
           </div>
@@ -76,12 +76,12 @@ export const Footer: React.FC = () => {
         {/* Bottom copyright ribbon */}
         <div className="pt-8 border-t border-yellow-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-bold text-slate-500">
           <div className="flex items-center gap-1.5">
-            <span>© 2026 Το Μαγικό Σχολείο • Θεοδοσία Δεμενίδου.</span>
+            <span>© 2026 Μαθαίνουμε Μαζί • Θεοδοσία Δεμενίδου.</span>
             <span>Με επιμέλεια & φροντίδα για την εκπαίδευση.</span>
           </div>
 
           <div className="flex items-center gap-1 text-slate-400">
-            <span>Powered by Google Gemini & Nano Banana Engine</span>
+            <span>Εκπαιδευτική Πλατφόρμα Πρωτοβάθμιας Εκπαίδευσης</span>
           </div>
         </div>
 

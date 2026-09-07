@@ -152,7 +152,7 @@ export function printWorksheetDirect(worksheet: Worksheet) {
       <div class="sheet-border">
         <div class="header">
           <div class="teacher-badge">
-            🏫 Το Μαγικό Σχολείο | Θεοδοσία Δεμενίδου
+            🏫 Μαθαίνουμε Μαζί | Θεοδοσία Δεμενίδου
           </div>
           <div>
             ${gradeNames[worksheet.grade] || worksheet.grade} • ${subjectNames[worksheet.subject] || worksheet.subject}
@@ -195,7 +195,7 @@ export function printWorksheetDirect(worksheet: Worksheet) {
 
         ${worksheet.content.funFact ? `
           <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 10px 14px; font-size: 13px; color: #1e40af; margin-top: 15px;">
-            🍌 <strong>Μυστικό από τη Νανο-Μπανάνα:</strong> ${worksheet.content.funFact}
+            🦉 <strong>Σημείωση από τον Βοηθό Μελέτης:</strong> ${worksheet.content.funFact}
           </div>
         ` : ''}
 

@@ -11,7 +11,7 @@ import { WorksheetCard } from '../components/WorksheetCard';
 import { WorksheetModal } from '../components/WorksheetModal';
 import { TeacherUploadModal } from '../components/TeacherUploadModal';
 import { StickerAlbumModal } from '../components/StickerAlbumModal';
-import { NanoBananaAssistant } from '../components/NanoBananaAssistant';
+import { StudyAssistant } from '../components/StudyAssistant';
 import { DailyQuizBanner } from '../components/DailyQuizBanner';
 import { Footer } from '../components/Footer';
 import { printWorksheetDirect } from '../lib/pdfGenerator';
@@ -266,8 +266,8 @@ export default function HomePage() {
       </main>
 
       {/* Floating Nano Banana Assistant */}
-      <NanoBananaAssistant
-        onUnlockBananaSticker={() => unlockSticker('stk-2')}
+      <StudyAssistant
+        onUnlockAssistantSticker={() => unlockSticker('stk-2')}
       />
 
       {/* Modals */}

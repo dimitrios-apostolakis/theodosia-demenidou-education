@@ -1,25 +1,25 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Sparkles, MessageCircle, X, Volume2, VolumeX, Lightbulb, RefreshCw, Send, Star, HelpCircle } from 'lucide-react';
+import { Sparkles, MessageCircle, X, Volume2, Lightbulb, RefreshCw, Send, Star, HelpCircle, BookOpen } from 'lucide-react';
 import { sounds } from '../lib/soundEffects';
 import { speakInGreek, stopSpeaking } from '../lib/speechSynthesis';
-import { bananaRiddles, bananaTongueTwisters } from '../data/sampleWorksheets';
+import { studyRiddles, studyTongueTwisters } from '../data/sampleWorksheets';
 import confetti from 'canvas-confetti';
 
-interface NanoBananaAssistantProps {
-  onUnlockBananaSticker?: () => void;
+interface StudyAssistantProps {
+  onUnlockAssistantSticker?: () => void;
 }
 
-export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
-  onUnlockBananaSticker,
+export const StudyAssistant: React.FC<StudyAssistantProps> = ({
+  onUnlockAssistantSticker,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [activeTab, setActiveTab] = useState<'chat' | 'riddles' | 'twisters' | 'tricks'>('chat');
-  const [chatMessages, setChatMessages] = useState<Array<{ sender: 'user' | 'banana'; text: string }>>([
+  const [chatMessages, setChatMessages] = useState<Array<{ sender: 'user' | 'assistant'; text: string }>>([
     {
-      sender: 'banana',
-      text: 'Γεια σου φίλε μου! Είμαι ο Nano Banana 🍌🤖, ο μαγικός έξυπνος βοηθός της κυρίας Θεοδοσίας! Τι θέλεις να μάθουμε σήμερα;'
+      sender: 'assistant',
+      text: 'Γεια σου φίλε μου! Είμαι ο Σοφούλης 🦉, ο έξυπνος βοηθός μελέτης της κυρίας Θεοδοσίας! Τι απορία έχεις σήμερα στα μαθήματά σου;'
     }
   ]);
   const [inputText, setInputText] = useState('');
@@ -27,14 +27,14 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
   const [showRiddleAnswer, setShowRiddleAnswer] = useState(false);
   const [currentTwisterIndex, setCurrentTwisterIndex] = useState(0);
   const [isSpeaking, setIsSpeaking] = useState(false);
-  const [bubbleText, setBubbleText] = useState('Πάτα με για μαγικά αινίγματα!');
+  const [bubbleText, setBubbleText] = useState('Χρειάζεσαι βοήθεια στα μαθήματα; 🦉');
 
   useEffect(() => {
     const greetings = [
-      'Πάτα με για αινίγματα! 🍌',
-      'Βοήθεια στα μαθηματικά; ✨',
-      'Έχω ένα μυστικό για σένα! 🚀',
-      'Μαθαίνουμε παρέα! 💛',
+      'Χρειάζεσαι βοήθεια στα μαθήματα; 🦉',
+      'Έχεις απορία στην προπαίδεια; 📐',
+      'Ρώτησέ με για τη γραμματική! 📚',
+      'Μαθαίνουμε παρέα με την κ. Θεοδοσία! ✏️',
     ];
     let i = 0;
     const interval = setInterval(() => {
@@ -45,10 +45,10 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
   }, []);
 
   const handleOpen = () => {
-    sounds.playBanana();
+    sounds.playChime();
     setIsOpen(true);
-    if (onUnlockBananaSticker) {
-      onUnlockBananaSticker();
+    if (onUnlockAssistantSticker) {
+      onUnlockAssistantSticker();
     }
   };
 
@@ -81,39 +81,41 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
     const newMessages = [...chatMessages, { sender: 'user' as const, text: userText }];
     setChatMessages(newMessages);
 
-    // AI smart child-friendly response engine
+    // AI smart pedagogical child-friendly response engine
     setTimeout(() => {
       let reply = '';
       const lower = userText.toLowerCase();
 
       if (lower.includes('προπαιδεια') || lower.includes('πολλαπλασιασμ') || lower.includes('x') || lower.includes('*')) {
-        reply = 'Η προπαίδεια είναι το αγαπημένο μου παιχνίδι! 🍌 Θυμήσου: για την προπαίδεια του 9, αν ανοίξεις τα 10 δάχτυλά σου και λυγίσεις το 3ο δάχτυλο (3 x 9), μένουν 2 δάχτυλα αριστερά και 7 δεξιά = 27! Δοκίμασέ το!';
+        reply = 'Η προπαίδεια είναι το κλειδί των μαθηματικών! 🦉 Θυμήσου: για την προπαίδεια του 9, αν ανοίξεις τα 10 δάχτυλά σου και λυγίσεις το 3ο δάχτυλο (3 x 9), μένουν 2 δάχτυλα αριστερά και 7 δεξιά = 27! Δοκίμασέ το!';
       } else if (lower.includes('θεοδοσια') || lower.includes('δασκαλα') || lower.includes('κυρια')) {
-        reply = 'Η κυρία Θεοδοσία Δεμενίδου είναι η πιο γλυκιά δασκάλα του σχολείου μας! Ετοιμάζει όλα αυτά τα φύλλα εργασίας με πολλή αγάπη για να περνάτε τέλεια!';
+        reply = 'Η κυρία Θεοδοσία Δεμενίδου είναι η εκπαιδευτικός μας! Ετοιμάζει όλα αυτά τα φύλλα εργασίας με πολλή φροντίδα για να αγαπήσετε τη γνώση!';
       } else if (lower.includes('αινοιγμα') || lower.includes('αινιγμα')) {
-        reply = 'Πήγαινε στην καρτέλα "Αινίγματα" 🧩 πάνω δεξιά για να σου πω τα πιο αστεία αινίγματα του κόσμου!';
+        reply = 'Πήγαινε στην καρτέλα "Αινίγματα" 🧩 πάνω δεξιά για να εξασκήσεις το μυαλό σου με σχολικές σπαζοκεφαλιές!';
       } else if (lower.includes('κλασμα') || lower.includes('κλασματα')) {
-        reply = 'Τα κλάσματα είναι σαν νόστιμα κομμάτια πίτσας! 🍕 Ο κάτω αριθμός (παρονομαστής) λέει σε πόσα κομμάτια κόψαμε την πίτσα, και ο πάνω (αριθμητής) πόσα φάγαμε!';
+        reply = 'Τα κλάσματα είναι μέρη ενός όλου! 🍕 Ο κάτω αριθμός (παρονομαστής) λέει σε πόσα ίσα κομμάτια κόψαμε κάτι, και ο πάνω (αριθμητής) πόσα κομμάτια πήραμε!';
       } else if (lower.includes('γεια') || lower.includes('καλημερα') || lower.includes('χαρηκα')) {
-        reply = 'Γεια σου γλυκό μου αστέρι! 🌟 Είσαι έτοιμος να λύσουμε κανένα διασκεδαστικό φύλλο εργασίας σήμερα;';
+        reply = 'Γεια σου αγαπητέ μαθητή! 🌟 Είσαι έτοιμος να ανακαλύψουμε νέα πράγματα σήμερα στα φύλλα εργασίας;';
       } else if (lower.includes('διαστημα') || lower.includes('πλανητ')) {
-        reply = 'Το διάστημα είναι γεμάτο μυστήρια! 🚀 Ήξερες ότι ο Ήλιος είναι τόσο τεράστιος που χωράει μέσα του πάνω από 1.000.000 πλανήτες σαν τη Γη μας;';
+        reply = 'Το διάστημα είναι γεμάτο επιστημονικά θαύματα! 🚀 Ο Ήλιος είναι ένα αστέρι τόσο μεγάλο που χωράει μέσα του πάνω από 1.000.000 πλανήτες σαν τη Γη μας!';
+      } else if (lower.includes('ορθογραφια') || lower.includes('γραμματικη')) {
+        reply = 'Στην ελληνική γραμματική, τα ουσιαστικά φανερώνουν πρόσωπο, ζώο ή πράγμα, ενώ τα ρήματα δείχνουν τι κάνει κάποιος! Ποια λέξη σε δυσκολεύει;';
       } else {
-        reply = `Φανταστική ερώτηση! 🌟 Μαθαίνουμε κάθε μέρα κάτι καινούργιο! Αν θέλεις, δοκίμασε να λύσεις ένα από τα φύλλα εργασίας της κυρίας Θεοδοσίας ή πάτα το κουμπί για να σου πω ένα αίνιγμα!`;
+        reply = `Πολύ όμορφη ερώτηση! 📚 Κάθε μέρα μαθαίνουμε κάτι καινούργιο. Δοκίμασε να λύσεις ένα φύλλο εργασίας της κυρίας Θεοδοσίας ή ρώτησέ με για την προπαίδεια και την ορθογραφία!`;
       }
 
-      setChatMessages([...newMessages, { sender: 'banana', text: reply }]);
+      setChatMessages([...newMessages, { sender: 'assistant', text: reply }]);
       sounds.playSuccess();
     }, 600);
   };
 
-  const triggerBananaParty = () => {
-    sounds.playBanana();
+  const triggerCelebration = () => {
+    sounds.playFanfare();
     confetti({
-      particleCount: 100,
-      spread: 80,
+      particleCount: 80,
+      spread: 70,
       origin: { y: 0.8 },
-      colors: ['#FDE047', '#FACC15', '#CA8A04', '#38BDF8', '#C084FC']
+      colors: ['#6366F1', '#38BDF8', '#4ADE80', '#FACC15']
     });
   };
 
@@ -126,9 +128,9 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
         {!isOpen && (
           <div 
             onClick={handleOpen}
-            className="pointer-events-auto mb-2 px-3 py-1.5 rounded-2xl bg-white/95 border-2 border-yellow-400 text-amber-900 text-[11px] sm:text-xs font-black shadow-md cursor-pointer transform hover:scale-102 transition-all flex items-center gap-1.5 max-w-[170px] sm:max-w-[210px]"
+            className="pointer-events-auto mb-2 px-3 py-1.5 rounded-2xl bg-white/95 border-2 border-indigo-300 text-indigo-950 text-[11px] sm:text-xs font-black shadow-md cursor-pointer transform hover:scale-102 transition-all flex items-center gap-1.5 max-w-[170px] sm:max-w-[210px]"
           >
-            <span>✨</span>
+            <span>💡</span>
             <span className="truncate">{bubbleText}</span>
           </div>
         )}
@@ -136,17 +138,17 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
         {/* Mascot Avatar Button */}
         <button
           onClick={isOpen ? handleClose : handleOpen}
-          className="pointer-events-auto relative w-14 h-14 sm:w-18 sm:h-18 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-yellow-300 via-amber-400 to-yellow-200 border-3 sm:border-4 border-yellow-400 shadow-lg flex items-center justify-center transform hover:scale-105 active:scale-95 transition-all group"
-          title="Άνοιξε τον βοηθό Nano Banana!"
+          className="pointer-events-auto relative w-14 h-14 sm:w-18 sm:h-18 rounded-2xl sm:rounded-3xl bg-gradient-to-tr from-indigo-500 via-blue-500 to-indigo-600 border-3 sm:border-4 border-indigo-300 shadow-lg flex items-center justify-center transform hover:scale-105 active:scale-95 transition-all group"
+          title="Άνοιξε τον βοηθό μελέτης Σοφούλη!"
         >
-          <div className="text-2xl sm:text-3xl group-hover:rotate-12 transition-transform">
-            🍌
+          <div className="text-2xl sm:text-3xl group-hover:rotate-6 transition-transform">
+            🦉
           </div>
-          <span className="absolute -top-1 -right-1 bg-rose-500 text-white text-[9px] font-black px-1.5 py-0.2 rounded-full border border-white">
+          <span className="absolute -top-1 -right-1 bg-amber-400 text-slate-900 text-[9px] font-black px-1.5 py-0.2 rounded-full border border-white">
             AI
           </span>
-          <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-0.5 rounded-full bg-slate-900 text-yellow-300 text-[9px] sm:text-[10px] font-black tracking-tight shadow-xs pointer-events-none">
-            Nano Banana
+          <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-0.5 rounded-full bg-slate-900 text-indigo-200 text-[9px] sm:text-[10px] font-black tracking-tight shadow-xs pointer-events-none">
+            Βοηθός Μελέτης
           </span>
         </button>
       </div>
@@ -154,36 +156,36 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
       {/* Expanded Interactive Assistant Modal - Zero Overflow Bottom Sheet on Mobile */}
       {isOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden bg-slate-900/50 backdrop-blur-xs flex items-end sm:items-center justify-center sm:justify-end p-0 sm:p-6 no-print max-w-[100vw]">
-          <div className="bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-md shadow-2xl border-t-4 sm:border-4 border-yellow-400 overflow-hidden flex flex-col h-[85vh] sm:h-[600px] max-h-[90vh] animate-slide-up">
+          <div className="bg-white rounded-t-3xl sm:rounded-3xl w-full sm:max-w-md shadow-2xl border-t-4 sm:border-4 border-indigo-500 overflow-hidden flex flex-col h-[85vh] sm:h-[600px] max-h-[90vh] animate-slide-up">
             
             {/* Header */}
-            <div className="bg-gradient-to-r from-yellow-400 via-amber-400 to-yellow-300 p-3.5 sm:p-4 border-b-2 border-yellow-500 flex items-center justify-between shrink-0">
+            <div className="bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-700 p-3.5 sm:p-4 text-white flex items-center justify-between shrink-0">
               <div className="flex items-center gap-2">
-                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-white flex items-center justify-center text-xl sm:text-2xl shadow-inner border border-yellow-400 shrink-0">
-                  🍌
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl sm:rounded-2xl bg-white/20 flex items-center justify-center text-xl sm:text-2xl shadow-inner border border-white/30 shrink-0">
+                  🦉
                 </div>
                 <div className="min-w-0">
-                  <h3 className="font-black text-slate-900 text-sm sm:text-base leading-tight flex items-center gap-1 truncate">
-                    <span>Google's Nano Banana</span>
-                    <Sparkles className="w-3.5 h-3.5 text-amber-700 shrink-0" />
+                  <h3 className="font-black text-sm sm:text-base leading-tight flex items-center gap-1 truncate">
+                    <span>Σοφούλης</span>
+                    <Sparkles className="w-3.5 h-3.5 text-amber-300 shrink-0" />
                   </h3>
-                  <p className="text-[10px] sm:text-[11px] font-extrabold text-amber-900 truncate">
-                    Έξυπνος Μαθητικός Βοηθός • Greek AI Buddy
+                  <p className="text-[10px] sm:text-[11px] font-bold text-indigo-200 truncate">
+                    Έξυπνος Βοηθός Μελέτης & Σχολικών Αποριών
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-1 shrink-0">
                 <button
-                  onClick={triggerBananaParty}
-                  className="p-1.5 sm:p-2 rounded-xl bg-white/80 hover:bg-white text-amber-800 transition-all text-xs font-extrabold"
-                  title="Banana Party Confetti!"
+                  onClick={triggerCelebration}
+                  className="p-1.5 sm:p-2 rounded-xl bg-white/20 hover:bg-white/30 text-amber-300 transition-all text-xs font-extrabold"
+                  title="Επιβράβευση!"
                 >
                   🎉
                 </button>
                 <button
                   onClick={handleClose}
-                  className="p-1.5 sm:p-2 rounded-xl bg-white/80 hover:bg-white text-slate-800 transition-all"
+                  className="p-1.5 sm:p-2 rounded-xl bg-white/20 hover:bg-white/30 text-white transition-all"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -191,37 +193,37 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
             </div>
 
             {/* Feature Tabs */}
-            <div className="grid grid-cols-4 bg-yellow-100/60 p-1.5 gap-1 border-b border-yellow-300 text-xs font-black text-slate-700 shrink-0">
+            <div className="grid grid-cols-4 bg-indigo-50/80 p-1.5 gap-1 border-b border-indigo-200 text-xs font-black text-slate-700 shrink-0">
               <button
                 onClick={() => { sounds.playPop(); setActiveTab('chat'); }}
-                className={`py-1.5 rounded-xl transition-all ${activeTab === 'chat' ? 'bg-white shadow-xs text-amber-800' : 'hover:bg-white/50'}`}
+                className={`py-1.5 rounded-xl transition-all ${activeTab === 'chat' ? 'bg-white shadow-xs text-indigo-800' : 'hover:bg-white/50'}`}
               >
-                💬 Συνομιλία
+                💬 Απορίες
               </button>
               <button
                 onClick={() => { sounds.playPop(); setActiveTab('riddles'); }}
-                className={`py-1.5 rounded-xl transition-all ${activeTab === 'riddles' ? 'bg-white shadow-xs text-amber-800' : 'hover:bg-white/50'}`}
+                className={`py-1.5 rounded-xl transition-all ${activeTab === 'riddles' ? 'bg-white shadow-xs text-indigo-800' : 'hover:bg-white/50'}`}
               >
                 🧩 Αινίγματα
               </button>
               <button
                 onClick={() => { sounds.playPop(); setActiveTab('twisters'); }}
-                className={`py-1.5 rounded-xl transition-all ${activeTab === 'twisters' ? 'bg-white shadow-xs text-amber-800' : 'hover:bg-white/50'}`}
+                className={`py-1.5 rounded-xl transition-all ${activeTab === 'twisters' ? 'bg-white shadow-xs text-indigo-800' : 'hover:bg-white/50'}`}
               >
                 👅 Γλώσσα
               </button>
               <button
                 onClick={() => { sounds.playPop(); setActiveTab('tricks'); }}
-                className={`py-1.5 rounded-xl transition-all ${activeTab === 'tricks' ? 'bg-white shadow-xs text-amber-800' : 'hover:bg-white/50'}`}
+                className={`py-1.5 rounded-xl transition-all ${activeTab === 'tricks' ? 'bg-white shadow-xs text-indigo-800' : 'hover:bg-white/50'}`}
               >
-                🧮 Κόλπα
+                📐 Κόλπα
               </button>
             </div>
 
             {/* Body per Tab */}
             <div className="flex-1 overflow-y-auto p-4 space-y-3">
               
-              {/* TAB 1: AI Chat */}
+              {/* TAB 1: Educational Chat */}
               {activeTab === 'chat' && (
                 <div className="flex flex-col h-full justify-between gap-2">
                   <div className="space-y-3 overflow-y-auto pr-1 flex-1">
@@ -230,24 +232,24 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
                         key={i}
                         className={`flex gap-2 ${msg.sender === 'user' ? 'justify-end' : 'justify-start'}`}
                       >
-                        {msg.sender === 'banana' && (
-                          <div className="w-7 h-7 rounded-full bg-yellow-300 border border-yellow-400 flex items-center justify-center text-sm shrink-0">
-                            🍌
+                        {msg.sender === 'assistant' && (
+                          <div className="w-7 h-7 rounded-full bg-indigo-100 border border-indigo-300 flex items-center justify-center text-sm shrink-0">
+                            🦉
                           </div>
                         )}
                         <div
                           className={`p-3 rounded-2xl text-xs sm:text-sm font-semibold max-w-[85%] leading-relaxed ${
                             msg.sender === 'user'
-                              ? 'bg-amber-500 text-white rounded-tr-xs'
-                              : 'bg-yellow-50 border border-yellow-200 text-slate-800 rounded-tl-xs shadow-2xs'
+                              ? 'bg-indigo-600 text-white rounded-tr-xs'
+                              : 'bg-slate-50 border border-slate-200 text-slate-800 rounded-tl-xs shadow-2xs'
                           }`}
                         >
                           {msg.text}
-                          {msg.sender === 'banana' && (
+                          {msg.sender === 'assistant' && (
                             <button
                               onClick={() => handleSpeak(msg.text)}
-                              className="mt-2 flex items-center gap-1 text-[11px] font-bold text-amber-700 hover:text-amber-900 bg-yellow-200/70 hover:bg-yellow-200 px-2 py-0.5 rounded-md"
-                              title="Άκουσε τον Nano Banana να σου μιλάει!"
+                              className="mt-2 flex items-center gap-1 text-[11px] font-bold text-indigo-700 hover:text-indigo-900 bg-indigo-50 hover:bg-indigo-100 px-2 py-0.5 rounded-md border border-indigo-200"
+                              title="Άκουσε την απάντηση στα ελληνικά!"
                             >
                               <Volume2 className="w-3 h-3" />
                               <span>Άκουσέ με!</span>
@@ -263,21 +265,21 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
                     <div className="flex gap-1.5 overflow-x-auto pb-2 scrollbar-none text-[10px] sm:text-[11px] font-bold text-slate-600">
                       <button
                         onClick={() => { setInputText('Πες μου ένα κόλπο για την προπαίδεια!'); }}
-                        className="px-2.5 py-1 rounded-full bg-yellow-100 hover:bg-yellow-200 text-amber-800 whitespace-nowrap border border-yellow-300 shrink-0"
+                        className="px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-800 whitespace-nowrap border border-indigo-200 shrink-0"
                       >
                         ⚡ Προπαίδεια
                       </button>
                       <button
                         onClick={() => { setInputText('Πώς γράφεται το παιδί;'); }}
-                        className="px-2.5 py-1 rounded-full bg-yellow-100 hover:bg-yellow-200 text-amber-800 whitespace-nowrap border border-yellow-300 shrink-0"
+                        className="px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-800 whitespace-nowrap border border-indigo-200 shrink-0"
                       >
                         ✏️ Ορθογραφία
                       </button>
                       <button
-                        onClick={() => { setInputText('Πες μου ένα μυστικό για τον Ήλιο!'); }}
-                        className="px-2.5 py-1 rounded-full bg-yellow-100 hover:bg-yellow-200 text-amber-800 whitespace-nowrap border border-yellow-300 shrink-0"
+                        onClick={() => { setInputText('Τι είναι τα ουσιαστικά;'); }}
+                        className="px-2.5 py-1 rounded-full bg-indigo-50 hover:bg-indigo-100 text-indigo-800 whitespace-nowrap border border-indigo-200 shrink-0"
                       >
-                        🚀 Διάστημα
+                        📚 Γραμματική
                       </button>
                     </div>
 
@@ -287,12 +289,12 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
                         type="text"
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
-                        placeholder="Ρώτησε τον Nano Banana..."
-                        className="flex-1 py-2 px-3 rounded-xl border-2 border-yellow-300 text-xs font-semibold focus:outline-none focus:border-amber-500 bg-white"
+                        placeholder="Ρώτησε τον Σοφούλη για τα μαθήματα..."
+                        className="flex-1 py-2 px-3 rounded-xl border-2 border-indigo-200 text-xs font-semibold focus:outline-none focus:border-indigo-500 bg-white"
                       />
                       <button
                         type="submit"
-                        className="p-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-bold transition-all active:scale-95 shrink-0"
+                        className="p-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold transition-all active:scale-95 shrink-0"
                       >
                         <Send className="w-4 h-4" />
                       </button>
@@ -306,15 +308,15 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
                 <div className="space-y-4 text-center py-4">
                   <div className="text-4xl animate-bounce-soft">🧩</div>
                   <h4 className="text-sm font-black text-slate-800">
-                    Αίνιγμα #{currentRiddleIndex + 1}
+                    Σχολικό Αίνιγμα #{currentRiddleIndex + 1}
                   </h4>
-                  <div className="p-4 rounded-2xl bg-amber-50 border-2 border-yellow-300 text-slate-800 font-bold text-sm leading-relaxed">
-                    "{bananaRiddles[currentRiddleIndex].riddle}"
+                  <div className="p-4 rounded-2xl bg-indigo-50/70 border-2 border-indigo-200 text-slate-800 font-bold text-sm leading-relaxed">
+                    "{studyRiddles[currentRiddleIndex].riddle}"
                   </div>
 
                   {showRiddleAnswer ? (
                     <div className="p-3 rounded-xl bg-emerald-100 border border-emerald-300 text-emerald-900 font-black text-sm animate-fade-in">
-                      {bananaRiddles[currentRiddleIndex].answer}
+                      {studyRiddles[currentRiddleIndex].answer}
                     </div>
                   ) : (
                     <button
@@ -322,7 +324,7 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
                         sounds.playFanfare();
                         setShowRiddleAnswer(true);
                       }}
-                      className="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-xs shadow-sm transition-all"
+                      className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold text-xs shadow-sm transition-all"
                     >
                       Δες την Απάντηση! 🔍
                     </button>
@@ -333,9 +335,9 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
                       onClick={() => {
                         sounds.playPop();
                         setShowRiddleAnswer(false);
-                        setCurrentRiddleIndex((prev) => (prev + 1) % bananaRiddles.length);
+                        setCurrentRiddleIndex((prev) => (prev + 1) % studyRiddles.length);
                       }}
-                      className="flex items-center justify-center gap-1.5 mx-auto text-xs font-bold text-slate-600 hover:text-amber-700 bg-slate-100 hover:bg-yellow-100 px-3 py-1.5 rounded-xl transition-all"
+                      className="flex items-center justify-center gap-1.5 mx-auto text-xs font-bold text-slate-600 hover:text-indigo-700 bg-slate-100 hover:bg-indigo-50 px-3 py-1.5 rounded-xl transition-all"
                     >
                       <RefreshCw className="w-3.5 h-3.5" />
                       <span>Επόμενο Αίνιγμα!</span>
@@ -349,19 +351,19 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
                 <div className="space-y-4 text-center py-4">
                   <div className="text-4xl animate-wiggle">👅</div>
                   <h4 className="text-sm font-black text-slate-800">
-                    Γλωσσοδέτης #{currentTwisterIndex + 1}
+                    Γλωσσοδέτης Ορθοφωνίας #{currentTwisterIndex + 1}
                   </h4>
-                  <div className="p-4 rounded-2xl bg-yellow-50 border-2 border-yellow-300 text-slate-800 font-extrabold text-sm leading-relaxed">
-                    "{bananaTongueTwisters[currentTwisterIndex]}"
+                  <div className="p-4 rounded-2xl bg-slate-50 border-2 border-indigo-200 text-slate-800 font-extrabold text-sm leading-relaxed">
+                    "{studyTongueTwisters[currentTwisterIndex]}"
                   </div>
                   <p className="text-xs text-slate-500 font-semibold">
-                    Μπορείς να τον πεις 3 φορές γρήγορα χωρίς να μπερδευτείς;
+                    Μπορείς να τον πεις 3 φορές καθαρά χωρίς λάθος;
                   </p>
 
                   <div className="flex items-center justify-center gap-2 pt-2">
                     <button
-                      onClick={() => handleSpeak(bananaTongueTwisters[currentTwisterIndex])}
-                      className="flex items-center gap-1 px-3 py-2 rounded-xl bg-amber-100 text-amber-900 font-extrabold text-xs hover:bg-amber-200 transition-all"
+                      onClick={() => handleSpeak(studyTongueTwisters[currentTwisterIndex])}
+                      className="flex items-center gap-1 px-3 py-2 rounded-xl bg-indigo-100 text-indigo-900 font-extrabold text-xs hover:bg-indigo-200 transition-all"
                     >
                       <Volume2 className="w-3.5 h-3.5" />
                       <span>Άκουσέ τον!</span>
@@ -369,7 +371,7 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
                     <button
                       onClick={() => {
                         sounds.playPop();
-                        setCurrentTwisterIndex((prev) => (prev + 1) % bananaTongueTwisters.length);
+                        setCurrentTwisterIndex((prev) => (prev + 1) % studyTongueTwisters.length);
                       }}
                       className="px-3 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all"
                     >
@@ -382,9 +384,9 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
               {/* TAB 4: Math Tricks */}
               {activeTab === 'tricks' && (
                 <div className="space-y-3">
-                  <div className="p-3 rounded-2xl bg-amber-50 border border-yellow-300">
-                    <h5 className="font-black text-xs text-amber-900 mb-1 flex items-center gap-1">
-                      <span>🍌 Το Κόλπο του 9</span>
+                  <div className="p-3 rounded-2xl bg-indigo-50/70 border border-indigo-200">
+                    <h5 className="font-black text-xs text-indigo-900 mb-1 flex items-center gap-1">
+                      <span>🦉 Το Κόλπο του 9</span>
                     </h5>
                     <p className="text-xs font-medium text-slate-700 leading-relaxed">
                       Σε κάθε αποτέλεσμα της προπαίδειας του 9, αν προσθέσεις τα ψηφία του, κάνουν ΠΑΝΤΑ 9! (π.χ. 9x3=27 $\rightarrow$ 2+7=9, 9x6=54 $\rightarrow$ 5+4=9).
@@ -415,9 +417,9 @@ export const NanoBananaAssistant: React.FC<NanoBananaAssistantProps> = ({
 
             {/* Bottom Footer Note */}
             <div className="p-2.5 bg-slate-50 border-t border-slate-200 text-center text-[10px] font-bold text-slate-500 flex items-center justify-center gap-1 shrink-0">
-              <span>Google Gemini & Nano Banana Engine</span>
+              <span>Εκπαιδευτικός Βοηθός Μελέτης</span>
               <span>•</span>
-              <span className="text-amber-600">Σχεδιασμένο για παιδιά Δημοτικού</span>
+              <span className="text-indigo-600">Σχεδιασμένο για παιδιά Δημοτικού</span>
             </div>
 
           </div>

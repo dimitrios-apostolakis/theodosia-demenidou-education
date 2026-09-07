@@ -389,7 +389,7 @@ export const TeacherUploadModal: React.FC<TeacherUploadModalProps> = ({
                   className="w-full py-3 px-4 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-slate-900 font-black text-sm shadow-md transition-all active:scale-98 flex items-center justify-center gap-2"
                 >
                   <Upload className="w-4 h-4 text-slate-900" />
-                  <span>Ανάρτηση Υλικού στο Μαγικό Σχολείο 🚀</span>
+                  <span>Ανάρτηση Υλικού στην Εκπαιδευτική Πύλη 🚀</span>
                 </button>
               </div>
 
