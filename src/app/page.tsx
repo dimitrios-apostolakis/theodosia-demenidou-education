@@ -1,113 +1,299 @@
-import Image from "next/image";
+'use client';
 
-export default function Home() {
+import React, { useState, useEffect, useMemo } from 'react';
+import { Grade, Subject, Worksheet, Sticker } from '../types/worksheet';
+import { initialWorksheets, initialStickers } from '../data/sampleWorksheets';
+import { Navbar } from '../components/Navbar';
+import { HeroSection } from '../components/HeroSection';
+import { GradeSelector } from '../components/GradeSelector';
+import { SubjectFilter } from '../components/SubjectFilter';
+import { WorksheetCard } from '../components/WorksheetCard';
+import { WorksheetModal } from '../components/WorksheetModal';
+import { TeacherUploadModal } from '../components/TeacherUploadModal';
+import { StickerAlbumModal } from '../components/StickerAlbumModal';
+import { NanoBananaAssistant } from '../components/NanoBananaAssistant';
+import { DailyQuizBanner } from '../components/DailyQuizBanner';
+import { Footer } from '../components/Footer';
+import { printWorksheetDirect } from '../lib/pdfGenerator';
+import { sounds } from '../lib/soundEffects';
+import { Sparkles, BookOpen, Search, Filter, Layers } from 'lucide-react';
+
+export default function HomePage() {
+  // State
+  const [selectedGrade, setSelectedGrade] = useState<Grade>('all');
+  const [selectedSubject, setSelectedSubject] = useState<Subject>('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [customWorksheets, setCustomWorksheets] = useState<Worksheet[]>([]);
+  const [solvedIds, setSolvedIds] = useState<string[]>([]);
+  const [stickers, setStickers] = useState<Sticker[]>(initialStickers);
+  
+  // Modals
+  const [previewWorksheet, setPreviewWorksheet] = useState<Worksheet | null>(null);
+  const [isUploadOpen, setIsUploadOpen] = useState(false);
+  const [isStickersOpen, setIsStickersOpen] = useState(false);
+
+  // Load from LocalStorage
+  useEffect(() => {
+    try {
+      const savedCustom = localStorage.getItem('theodosia_custom_worksheets');
+      if (savedCustom) {
+        setCustomWorksheets(JSON.parse(savedCustom));
+      }
+      const savedSolved = localStorage.getItem('theodosia_solved_ids');
+      if (savedSolved) {
+        setSolvedIds(JSON.parse(savedSolved));
+      }
+      const savedStickers = localStorage.getItem('theodosia_stickers');
+      if (savedStickers) {
+        setStickers(JSON.parse(savedStickers));
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
+
+  // Save changes
+  const saveCustomWorksheets = (updated: Worksheet[]) => {
+    setCustomWorksheets(updated);
+    try {
+      localStorage.setItem('theodosia_custom_worksheets', JSON.stringify(updated));
+    } catch {
+      // ignore
+    }
+  };
+
+  const unlockSticker = (stickerId: string) => {
+    setStickers((prev) => {
+      const next = prev.map((s) => (s.id === stickerId ? { ...s, unlocked: true } : s));
+      // Check if 5 are unlocked -> unlock gold medal
+      const unlockedCount = next.filter((s) => s.unlocked && s.id !== 'stk-8').length;
+      if (unlockedCount >= 5) {
+        const withMedal = next.map((s) => (s.id === 'stk-8' ? { ...s, unlocked: true } : s));
+        try {
+          localStorage.setItem('theodosia_stickers', JSON.stringify(withMedal));
+        } catch {}
+        return withMedal;
+      }
+      try {
+        localStorage.setItem('theodosia_stickers', JSON.stringify(next));
+      } catch {}
+      return next;
+    });
+  };
+
+  // Combine initial + custom
+  const allWorksheets = useMemo(() => {
+    return [...customWorksheets, ...initialWorksheets];
+  }, [customWorksheets]);
+
+  // Counts for filters
+  const gradeCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    allWorksheets.forEach((w) => {
+      counts[w.grade] = (counts[w.grade] || 0) + 1;
+    });
+    return counts;
+  }, [allWorksheets]);
+
+  const subjectCounts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    allWorksheets.forEach((w) => {
+      counts[w.subject] = (counts[w.subject] || 0) + 1;
+    });
+    return counts;
+  }, [allWorksheets]);
+
+  // Filtered worksheets
+  const filteredWorksheets = useMemo(() => {
+    return allWorksheets.filter((w) => {
+      // Grade filter
+      if (selectedGrade !== 'all' && w.grade !== selectedGrade) {
+        return false;
+      }
+      // Subject filter
+      if (selectedSubject !== 'all' && w.subject !== selectedSubject) {
+        return false;
+      }
+      // Search query
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().trim();
+        const matchTitle = w.title.toLowerCase().includes(q);
+        const matchDesc = w.description.toLowerCase().includes(q);
+        const matchTags = w.tags.some((t) => t.toLowerCase().includes(q));
+        if (!matchTitle && !matchDesc && !matchTags) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }, [allWorksheets, selectedGrade, selectedSubject, searchQuery]);
+
+  // Actions
+  const handleAddWorksheet = (newSheet: Worksheet) => {
+    const updated = [newSheet, ...customWorksheets];
+    saveCustomWorksheets(updated);
+  };
+
+  const handleDeleteCustomWorksheet = (id: string) => {
+    const updated = customWorksheets.filter((w) => w.id !== id);
+    saveCustomWorksheets(updated);
+  };
+
+  const handlePrint = (worksheet: Worksheet) => {
+    unlockSticker('stk-7'); // Super printer sticker
+    printWorksheetDirect(worksheet);
+  };
+
+  const handleSolveComplete = (worksheet: Worksheet) => {
+    if (!solvedIds.includes(worksheet.id)) {
+      const nextSolved = [...solvedIds, worksheet.id];
+      setSolvedIds(nextSolved);
+      try {
+        localStorage.setItem('theodosia_solved_ids', JSON.stringify(nextSolved));
+      } catch {}
+
+      // Unlock subject-specific sticker
+      if (worksheet.subject === 'language') unlockSticker('stk-3');
+      if (worksheet.subject === 'math') unlockSticker('stk-4');
+      if (worksheet.subject === 'history' || worksheet.subject === 'geography') unlockSticker('stk-5');
+      if (worksheet.subject === 'science') unlockSticker('stk-6');
+    }
+  };
+
+  const unlockedStickersCount = stickers.filter((s) => s.unlocked).length;
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <div className="min-h-screen flex flex-col magic-pattern text-slate-800">
+      {/* Navbar */}
+      <Navbar
+        onOpenUpload={() => setIsUploadOpen(true)}
+        onOpenStickers={() => setIsStickersOpen(true)}
+        unlockedStickersCount={unlockedStickersCount}
+        totalStickersCount={stickers.length}
+      />
 
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+      {/* Hero Section */}
+      <HeroSection
+        searchQuery={searchQuery}
+        onSearchChange={setSearchQuery}
+        onQuickSearchTag={(tag) => setSearchQuery(tag)}
+        totalWorksheets={allWorksheets.length}
+      />
+
+      {/* Main Content Area */}
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full -mt-4">
+        
+        {/* Grade Selector Islands */}
+        <GradeSelector
+          selectedGrade={selectedGrade}
+          onSelectGrade={setSelectedGrade}
+          gradeCounts={gradeCounts}
         />
-      </div>
 
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+        {/* Daily Mini-Quiz Banner */}
+        <DailyQuizBanner />
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+        {/* Subject Filter Tabs */}
+        <SubjectFilter
+          selectedSubject={selectedSubject}
+          onSelectSubject={setSelectedSubject}
+          subjectCounts={subjectCounts}
+        />
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
+        {/* Header Ribbon for Active Filter State */}
+        <div className="flex items-center justify-between mb-6 pt-2">
+          <div className="flex items-center gap-2">
+            <Layers className="w-5 h-5 text-amber-600" />
+            <h2 className="text-xl sm:text-2xl font-black text-slate-900">
+              {selectedGrade === 'all' ? 'Όλα τα Φύλλα Εργασίας' : `Φύλλα Εργασίας - ${selectedGrade}' Δημοτικού`}
+            </h2>
+            <span className="text-xs font-black px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-yellow-300">
+              {filteredWorksheets.length} διαθέσιμα
             </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
+          </div>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+          {(selectedGrade !== 'all' || selectedSubject !== 'all' || searchQuery) && (
+            <button
+              onClick={() => {
+                sounds.playPop();
+                setSelectedGrade('all');
+                setSelectedSubject('all');
+                setSearchQuery('');
+              }}
+              className="text-xs font-black text-rose-600 hover:text-rose-700 underline"
+            >
+              Καθαρισμός όλων των φίλτρων
+            </button>
+          )}
+        </div>
+
+        {/* Worksheets Grid */}
+        {filteredWorksheets.length === 0 ? (
+          <div className="text-center py-16 bg-white/70 rounded-3xl border-2 border-dashed border-yellow-300 p-8">
+            <div className="text-5xl mb-3 animate-bounce-soft">🔍</div>
+            <h3 className="text-lg font-black text-slate-800">
+              Δε βρέθηκαν φύλλα εργασίας με αυτά τα κριτήρια!
+            </h3>
+            <p className="text-sm text-slate-500 font-semibold mt-1 mb-4">
+              Δοκιμάστε να επιλέξετε άλλη τάξη ή να καθαρίσετε την αναζήτηση.
+            </p>
+            <button
+              onClick={() => {
+                setSelectedGrade('all');
+                setSelectedSubject('all');
+                setSearchQuery('');
+              }}
+              className="px-5 py-2.5 rounded-2xl bg-amber-500 hover:bg-amber-600 text-white font-extrabold text-sm shadow-sm transition-all"
+            >
+              Επαναφορά Όλων των Φίλτρων
+            </button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {filteredWorksheets.map((worksheet) => (
+              <WorksheetCard
+                key={worksheet.id}
+                worksheet={worksheet}
+                onPreview={(ws) => setPreviewWorksheet(ws)}
+                onPrint={handlePrint}
+                onSolveComplete={handleSolveComplete}
+                isSolved={solvedIds.includes(worksheet.id)}
+              />
+            ))}
+          </div>
+        )}
+
+      </main>
+
+      {/* Floating Nano Banana Assistant */}
+      <NanoBananaAssistant
+        onUnlockBananaSticker={() => unlockSticker('stk-2')}
+      />
+
+      {/* Modals */}
+      <WorksheetModal
+        worksheet={previewWorksheet}
+        onClose={() => setPreviewWorksheet(null)}
+        onPrint={handlePrint}
+        onSolved={handleSolveComplete}
+      />
+
+      <TeacherUploadModal
+        isOpen={isUploadOpen}
+        onClose={() => setIsUploadOpen(false)}
+        onAddWorksheet={handleAddWorksheet}
+        customWorksheets={customWorksheets}
+        onDeleteCustomWorksheet={handleDeleteCustomWorksheet}
+      />
+
+      <StickerAlbumModal
+        isOpen={isStickersOpen}
+        onClose={() => setIsStickersOpen(false)}
+        stickers={stickers}
+      />
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 }

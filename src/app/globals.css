@@ -3,31 +3,73 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+  --foreground-rgb: 30, 41, 59;
+  --background-start-rgb: 254, 252, 232;
+  --background-end-rgb: 240, 249, 255;
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: radial-gradient(circle at 10% 20%, rgba(254, 240, 138, 0.25) 0%, rgba(224, 242, 254, 0.4) 90%), #fafafa;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+/* Playful dot pattern background */
+.magic-pattern {
+  background-image: radial-gradient(#e0e7ff 1.5px, transparent 1.5px), radial-gradient(#fef08a 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+/* Custom fun scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #fefce8;
+}
+::-webkit-scrollbar-thumb {
+  background: #facc15;
+  border-radius: 9999px;
+  border: 3px solid #fefce8;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #eab308;
+}
+
+/* Glassmorphism kid card */
+.kid-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(12px);
+  border: 3px solid rgba(254, 240, 138, 0.8);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+}
+
+.kid-card-active {
+  box-shadow: 0 18px 30px -6px rgba(234, 179, 8, 0.25);
+  transform: translateY(-4px);
+}
+
+/* Print specific rules for classroom worksheets */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .worksheet-printable {
+    box-shadow: none !important;
+    border: 2px solid #1e293b !important;
+    margin: 0 !important;
+    padding: 24px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    page-break-after: always;
   }
 }
